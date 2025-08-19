@@ -35,7 +35,7 @@ namespace Utils {
     public:
         static Logger& getInstance();
 
-        void log(LogLevel level, std::string& message);
+        void log(LogLevel level,const std::string& message);
         void set_loglevel(LogLevel level);
         void set_logfile(const std::string& filename);
         void enable_console_output(bool enable);

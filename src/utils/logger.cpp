@@ -14,7 +14,7 @@ namespace Utils {
         return instance;
     }
 
-    void Logger::log(LogLevel level, std::string &message) {
+    void Logger::log(LogLevel level,const std::string &message) {
         std::string time_stamp = getCurrentTimestamp();
         std::string level_str = levelToString(level);
         std::string log_message = '[' + time_stamp + ']' + '[' + level_str + ']' + message;
