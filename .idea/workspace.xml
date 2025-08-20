@@ -32,6 +32,7 @@
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/protocol/openvpn_packet.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/protocol/openvpn_packet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/protocol/openvpn_packet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/protocol/openvpn_packet.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,11 +91,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="vpn_final_project_" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="vpn_final_project_" TARGET_NAME="vpn_final_project_" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="vpn_final_project_" RUN_TARGET_NAME="vpn_final_project_">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -115,7 +111,8 @@
       <workItem from="1754721760534" duration="18448000" />
       <workItem from="1755333909043" duration="1268000" />
       <workItem from="1755500926128" duration="4603000" />
-      <workItem from="1755507185243" duration="6198000" />
+      <workItem from="1755507185243" duration="12580000" />
+      <workItem from="1755595999707" duration="7198000" />
     </task>
     <servers />
   </component>

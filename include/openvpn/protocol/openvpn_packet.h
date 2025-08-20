@@ -10,7 +10,7 @@
 
 
 namespace OpenVPN {
-    namespace protocol {
+    namespace Protocol {
         // OpenVPN Protocol Constants
         constexpr uint8_t OPENVPN_VERSION = 1;
         constexpr uint8_t MAX_PACKET_SIZE = 1500;
@@ -20,14 +20,14 @@ namespace OpenVPN {
         enum class ControlOpcode : uint8_t {
             P_CONTROL_HARD_RESET_CLIENT_V1 = 1,
             P_CONTROL_HARD_RESET_SERVER_V1 = 2,
-            P_CONTROL_SOFT_RESET = 3,
+            P_CONTROL_SOFT_RESET_V1 = 3,
             P_CONTROL_V1 = 4,
             P_ACK_V1 = 5,
             P_DATA_V1 = 6,
             P_CONTROL_HARD_RESET_CLIENT_V2 = 7,
             P_CONTROL_HARD_RESET_SERVER_V2 = 8,
             P_CONTROL_WCK_V1 = 9,
-            P_CONTROL_HARD_RESET_SERVER_V3 = 10
+            P_CONTROL_HARD_RESET_CLIENT_V3 = 10
         };
 
         //openVPN data chanel opcode
@@ -129,7 +129,7 @@ namespace OpenVPN {
             uint32_t getPacketId() const {
                 return packet_id_;
             }
-            std::vector<uint8_t>& getPayLoad() const {
+           const std::vector<uint8_t>& getPayLoad() const {
                 return payload_;
             }
             size_t getPacketSize() const;
@@ -163,6 +163,19 @@ namespace OpenVPN {
             // utility methods
             std::string toString() const;
             void clear();
+        };
+
+        struct PacketStatincs {
+            uint64_t packet_sent = 0;
+            uint64_t packet_received = 0;
+            uint64_t bytes_sent = 0;
+            uint64_t bytes_received = 0;
+            uint64_t control_packets = 0;
+            uint64_t data_packets = 0;
+            uint64_t invalid_packets = 0;
+
+            void reset();
+            std::string toString()const;
         };
     }
 }
