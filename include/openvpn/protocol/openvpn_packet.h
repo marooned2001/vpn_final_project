@@ -32,7 +32,7 @@ namespace OpenVPN {
 
         //openVPN data chanel opcode
         enum class DataOpcode : uint8_t {
-            P_DATA_V2 = 9
+            P_DATA_V2 = 9 // there will be bug num 1
         };
 
         // Packet type
@@ -92,7 +92,7 @@ namespace OpenVPN {
 
         public:
             OpenVPNPacket();
-            explicit OpenVPNPacket(const std::vector<uint8_t> raw_data);
+            explicit OpenVPNPacket(const std::vector<uint8_t>& raw_data);
             ~OpenVPNPacket() = default;
 
             //packet creation

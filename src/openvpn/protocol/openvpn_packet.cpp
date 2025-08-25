@@ -17,7 +17,7 @@ namespace OpenVPN {
         session_id_(0),
         packet_id_(0) {
         }
-        OpenVPNPacket::OpenVPNPacket(const std::vector<uint8_t> raw_data) : OpenVPNPacket() {
+        OpenVPNPacket::OpenVPNPacket(const std::vector<uint8_t>& raw_data) : OpenVPNPacket() {
             parseFromRawData(raw_data);
         }
 
@@ -52,7 +52,7 @@ namespace OpenVPN {
         }
 
         bool OpenVPNPacket::parseFromRawData(const std::vector<uint8_t> &raw_data) {
-            if (raw_data.size()>MIN_PACKET_SIZE) {
+            if (raw_data.size()<MIN_PACKET_SIZE) {
                 Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "===packeet is to small:" + std::to_string(raw_data.size()) + "bytes===");
                 return false;
             }
@@ -205,7 +205,7 @@ namespace OpenVPN {
                 case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_CLIENT_V3):
                     return PacketType::CONTROL;
 
-                case static_cast<uint8_t>(DataOpcode::P_DATA_V2):
+                case static_cast<uint8_t>(DataOpcode::P_DATA_V2): // there will be bug num 1
                 case static_cast<uint8_t>(ControlOpcode::P_DATA_V1):
                     return PacketType::DATA;
 
