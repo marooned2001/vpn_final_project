@@ -25,7 +25,7 @@ namespace OpenVPN {
         TLSVersion version_;
         SSLMode mode_;
         bool initialized_;
-        SSL_CTX ctx_;
+        SSL_CTX* ctx_;
 
         //static openssl management
         static bool openssl_initialized_;
