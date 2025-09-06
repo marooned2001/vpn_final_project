@@ -1,5 +1,8 @@
 {
-  "name": "vpn-final-project",
-  "version": "1.0.0",
-  "dependencies": []
+  "name" : "vpn-final-project",
+  "version" : "1.0.0",
+  "dependencies" : [ {
+    "name" : "openssl"
+  } ]
+
 }

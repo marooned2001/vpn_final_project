@@ -9,7 +9,7 @@
 #include <fstream>
 
 namespace Utils {
-    enum class LogLevel {
+    enum class LogLevel : int {
         DEBUG = 0,
         INFO = 1,
         WARNING = 2,

@@ -14,7 +14,7 @@
 #pragma comment(lib,"ws2_32.lib")
 class Tcpsocket {
 private:
-    SOCKET socket;
+    SOCKET sock;
     bool is_connected;
     bool is_server;
     static bool winsock_inited;

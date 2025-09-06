@@ -26,7 +26,6 @@ namespace OpenVPN {
             P_DATA_V1 = 6,
             P_CONTROL_HARD_RESET_CLIENT_V2 = 7,
             P_CONTROL_HARD_RESET_SERVER_V2 = 8,
-            P_CONTROL_WCK_V1 = 9,
             P_CONTROL_HARD_RESET_CLIENT_V3 = 10
         };
 

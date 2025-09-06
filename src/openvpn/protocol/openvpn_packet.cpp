@@ -61,7 +61,7 @@ namespace OpenVPN {
                 //pars header data
                 PacketHeader header;
                 std::memcpy(&header, raw_data.data()+offset,sizeof(PacketHeader));
-                offset =+ sizeof(PacketHeader);
+                offset += sizeof(PacketHeader);
 
                 opcode_ = header.getOpcode();
                 key_id_ = header.getKeyId();
@@ -76,7 +76,7 @@ namespace OpenVPN {
                     //pars session ID (8 byte, network byte order)
                     session_id_ = 0;
                     for (int i = 0; i < 8; i++) {
-                        session_id_ = (session_id_ >> 8) | (raw_data[offset + i]);
+                        session_id_ = (session_id_ << 8) | (raw_data[offset + i]);
                     }
                     offset += 8;
                     //pars packet ID (4 bytes , network byte order)
@@ -201,7 +201,6 @@ namespace OpenVPN {
                 case static_cast<uint8_t>(ControlOpcode::P_ACK_V1):
                 case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_CLIENT_V2):
                 case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_SERVER_V2):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_WCK_V1):
                 case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_CLIENT_V3):
                     return PacketType::CONTROL;
 
