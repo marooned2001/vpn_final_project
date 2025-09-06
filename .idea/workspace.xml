@@ -30,16 +30,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/SSL_type.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/ssl_context.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/crypto/SSL_type.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/protocol/openvpn_packet.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/protocol/openvpn_packet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/tcp_transport.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/tcp_transport.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/utils/logger.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/utils/logger.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/protocol/openvpn_packet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/protocol/openvpn_packet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/tcp_transport.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/tcp_transport.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/vcpkg.json" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/vcpkg.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +136,7 @@
       <workItem from="1756572013741" duration="2767000" />
       <workItem from="1756626225918" duration="25366000" />
       <workItem from="1756991624142" duration="2535000" />
-      <workItem from="1756994404046" duration="9295000" />
+      <workItem from="1756994404046" duration="10395000" />
     </task>
     <servers />
   </component>
