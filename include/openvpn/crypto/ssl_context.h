@@ -64,8 +64,8 @@ namespace OpenVPN {
 
         //security configuration
         void set_verify_mode(SSLMode mode);
-        void set_cipher_list(const std::string& cipher_list);
-        void set_cipher_suites(const std::string& cipher_suits);
+        bool set_cipher_list(const std::string& cipher_list);
+        bool set_cipher_suites(const std::string& cipher_suits);
         void set_session_cash(bool enable);
 
         //ssl session management
