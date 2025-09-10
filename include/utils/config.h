@@ -64,7 +64,7 @@ namespace OpenVPN {
 
         //validation
         bool validate() const;
-        std::string get_validation() const;
+        std::string get_validation_error() const;
 
         //to string
         std::string to_string() const;
@@ -90,7 +90,7 @@ namespace OpenVPN {
 
         public:
         config_parser();
-        ~config_parser();
+        ~config_parser() = default;
 
         //pars configuration file
         bool pars_file(const std::string& config_file, ConfigOpenVPN& config);
@@ -103,11 +103,11 @@ namespace OpenVPN {
         const std::vector<std::string>& get_warnings() const {
             return warnings_;
         }
-        void clear_messages() {};
+        void clear_messages();
 
         //utility
         static bool is_valid_ip(const std::string& ip);
-        static bool is_valid_port(const uint16_t port);
+        static bool is_valid_port(const uint16_t& port);
         static bool is_valid_cipher(const std::string& cipher);
         static bool is_valid_auth(const std::string& auth);
     };
