@@ -31,7 +31,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/utils/config.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/utils/config.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,11 +96,6 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.vpn_final_project_">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="openvpn_lib" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="vpn_final_project_" TARGET_NAME="openvpn_lib" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -137,7 +131,8 @@
       <workItem from="1756626225918" duration="25366000" />
       <workItem from="1756991624142" duration="2535000" />
       <workItem from="1756994404046" duration="35986000" />
-      <workItem from="1757518134357" duration="5104000" />
+      <workItem from="1757518134357" duration="5487000" />
+      <workItem from="1757606091412" duration="5290000" />
     </task>
     <servers />
   </component>
