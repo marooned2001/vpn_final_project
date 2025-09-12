@@ -6,7 +6,6 @@
 #include "../../utils/config.h"
 
 #include <string>
-#include <memory>
 #include <functional>
 #include <vector>
 #include <cstdint>
@@ -168,16 +167,5 @@ namespace OpenVPN {
         std::string get_last_error() const;
         int get_last_error_code() const;
         static std::string get_socket_error(int error_code);
-    };
-
-    class UDPTransportFactory {
-        public:
-        enum class Protocol {
-            UDP,
-            TCP // for future
-        };
-        static std::unique_ptr<UDPTransport> create_udp_transport();
-        static Protocol string_to_protocol(const std::string& protocol_str);
-        static std::string protocol_to_string(const Protocol protocol);
     };
 };
