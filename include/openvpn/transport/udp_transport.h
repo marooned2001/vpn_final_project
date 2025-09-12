@@ -67,7 +67,7 @@ namespace OpenVPN {
     };
 
  //transport event callback
-    using DataRecivedCallback = std::function<void(const std::vector<uint8_t>&,const NetworkEndpoint&)>;
+    using DataReceivedCallback = std::function<void(const std::vector<uint8_t>&,const NetworkEndpoint&)>;
     using ErrorCallback = std::function<void(const std::string&)>;
     using ConnectedCallback = std::function<void(const NetworkEndpoint&)>;
     using DisconnectedCallback = std::function<void()>;
@@ -83,7 +83,7 @@ namespace OpenVPN {
         UdpTransportStatics statics_;
 
         //callback
-        DataRecivedCallback data_received_callback_;
+        DataReceivedCallback data_received_callback_;
         ErrorCallback error_callback_;
         ConnectedCallback connected_callback_;
         DisconnectedCallback disconnected_callback_;
@@ -135,11 +135,11 @@ namespace OpenVPN {
         bool send_to(const std::vector<uint8_t>& data, const NetworkEndpoint& endpoint);
 
         //receiving
-        bool receive(std::vector<uint8_t>& data, NetworkEndpoint& remote_endpoint);
+        bool receive(std::vector<uint8_t>& data, NetworkEndpoint& endpoint);
         bool has_pending_data() const;
 
         //callback
-        void set_data_received_callback( DataRecivedCallback callback);
+        void set_data_received_callback( DataReceivedCallback callback);
         void set_error_callback( ErrorCallback callback);
         void set_connected_callback( ConnectedCallback callback);
         void set_disconnected_callback( DisconnectedCallback callback);
