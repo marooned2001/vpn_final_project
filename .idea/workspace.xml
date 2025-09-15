@@ -32,6 +32,7 @@
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/udp_transport.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/udp_transport.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/udp_transport.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/udp_transport.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +135,9 @@
       <workItem from="1756994404046" duration="35986000" />
       <workItem from="1757518134357" duration="5487000" />
       <workItem from="1757606091412" duration="5446000" />
-      <workItem from="1757675256903" duration="8748000" />
+      <workItem from="1757675256903" duration="8888000" />
+      <workItem from="1757771547613" duration="3186000" />
+      <workItem from="1757924429962" duration="2199000" />
     </task>
     <servers />
   </component>

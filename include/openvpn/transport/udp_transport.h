@@ -150,7 +150,7 @@ namespace OpenVPN {
         void stop_async_processing();
 
         //socket options
-        bool set_socket_option(int level, int option_name,const void* option_value, socklen_t option_len);
+        bool set_socket_option(int level, int option,const void* option_value, socklen_t option_len);
         bool set_none_blocking(bool none_blocking);
         bool set_reuse_address(bool reuse_address);
         bool set_receive_buffer_size(int size);
