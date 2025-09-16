@@ -21,7 +21,7 @@ namespace OpenVPN {
             parseFromRawData(raw_data);
         }
 
-        std::unique_ptr<OpenVPNPacket> OpenVPNPacket::createControlPacket(ControlOpcode opcode, uint8_t key_id, uint64_t session_id, uint32_t packet_id, const std::vector<uint8_t> &payload) {
+        std::unique_ptr<OpenVPNPacket> OpenVPNPacket::createControlPacket(PacketOpcode opcode, uint8_t key_id, uint64_t session_id, uint32_t packet_id, const std::vector<uint8_t> &payload) {
 
             auto packet = std::make_unique<OpenVPNPacket>();
             packet->packet_type_ = PacketType::CONTROL;
@@ -39,7 +39,7 @@ namespace OpenVPN {
         std::unique_ptr<OpenVPNPacket> OpenVPNPacket::createDataPacket(uint8_t key_id, uint32_t packet_id, std::vector<uint8_t> &payload) {
             auto packet = std::make_unique<OpenVPNPacket>();
             packet->packet_type_ = PacketType::DATA;
-            packet->opcode_ = static_cast<uint8_t>(DataOpcode::P_DATA_V2);
+            packet->opcode_ = static_cast<uint8_t>(PacketOpcode::P_DATA_V2);
             packet->key_id_ = key_id;
             packet->packet_id_ = packet_id;
             packet->session_id_ = 0; //Data packet don't have session ID
@@ -194,18 +194,18 @@ namespace OpenVPN {
 
         PacketType OpenVPNPacket::determinePacketType(uint8_t opcode) const {
             switch (opcode) {
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_CLIENT_V1):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_SERVER_V1):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_SOFT_RESET_V1):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_V1):
-                case static_cast<uint8_t>(ControlOpcode::P_ACK_V1):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_CLIENT_V2):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_SERVER_V2):
-                case static_cast<uint8_t>(ControlOpcode::P_CONTROL_HARD_RESET_CLIENT_V3):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_HARD_RESET_CLIENT_V1):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_HARD_RESET_SERVER_V1):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_SOFT_RESET_V1):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_V1):
+                case static_cast<uint8_t>(PacketOpcode::P_ACK_V1):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_HARD_RESET_CLIENT_V2):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_HARD_RESET_SERVER_V2):
+                case static_cast<uint8_t>(PacketOpcode::P_CONTROL_HARD_RESET_CLIENT_V3):
                     return PacketType::CONTROL;
 
-                case static_cast<uint8_t>(DataOpcode::P_DATA_V2): // there will be bug num 1
-                case static_cast<uint8_t>(ControlOpcode::P_DATA_V1):
+                case static_cast<uint8_t>(PacketOpcode::P_DATA_V2): // there will be bug num 1
+                case static_cast<uint8_t>(PacketOpcode::P_DATA_V1):
                     return PacketType::DATA;
 
                 default:

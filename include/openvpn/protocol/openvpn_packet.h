@@ -16,8 +16,8 @@ namespace OpenVPN {
         constexpr uint8_t MAX_PACKET_SIZE = 1500;
         constexpr uint8_t MIN_PACKET_SIZE = 14;
 
-        // OpenVPN Opcodes (Control Channel)
-        enum class ControlOpcode : uint8_t {
+        // OpenVPN Opcodes
+        enum class PacketOpcode : uint8_t {
             P_CONTROL_HARD_RESET_CLIENT_V1 = 1,
             P_CONTROL_HARD_RESET_SERVER_V1 = 2,
             P_CONTROL_SOFT_RESET_V1 = 3,
@@ -26,12 +26,8 @@ namespace OpenVPN {
             P_DATA_V1 = 6,
             P_CONTROL_HARD_RESET_CLIENT_V2 = 7,
             P_CONTROL_HARD_RESET_SERVER_V2 = 8,
+            P_DATA_V2 = 9,
             P_CONTROL_HARD_RESET_CLIENT_V3 = 10
-        };
-
-        //openVPN data chanel opcode
-        enum class DataOpcode : uint8_t {
-            P_DATA_V2 = 9 // there will be bug num 1
         };
 
         // Packet type
@@ -96,7 +92,7 @@ namespace OpenVPN {
 
             //packet creation
             static std::unique_ptr<OpenVPNPacket> createControlPacket(
-                ControlOpcode opcode,
+                PacketOpcode opcode,
                 uint8_t key_id,
                 uint64_t session_id,
                 uint32_t packet_id,
