@@ -382,7 +382,7 @@ namespace OpenVPN {
     }
     void config_parser::add_errors(const std::string &error) {
         errors_.push_back(error);
-        Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "config parser: " + error );
+        Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "config parser: " + error );
     }
     void config_parser::add_warning(const std::string &warning) {
         warnings_.push_back(warning);

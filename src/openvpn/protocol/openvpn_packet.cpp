@@ -53,7 +53,7 @@ namespace OpenVPN {
 
         bool OpenVPNPacket::parseFromRawData(const std::vector<uint8_t> &raw_data) {
             if (raw_data.size()<MIN_PACKET_SIZE) {
-                Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "===packeet is to small:" + std::to_string(raw_data.size()) + "bytes===");
+                Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "===packeet is to small:" + std::to_string(raw_data.size()) + "bytes===");
                 return false;
             }
             try {
@@ -70,7 +70,7 @@ namespace OpenVPN {
                 if (packet_type_ == PacketType::CONTROL) {
                     //pars control packet
                     if (raw_data.size() < sizeof(ControlPacketHeader)) {
-                        Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "===control packet to small===");
+                        Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "===control packet to small===");
                         return false;
                     }
                     //pars session ID (8 byte, network byte order)
@@ -88,7 +88,7 @@ namespace OpenVPN {
                 } else if (packet_type_ == PacketType::DATA) {
                     //Data packet parsing line
                     if (raw_data.size() < sizeof(DataPacketHeader)) {
-                        Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "===data packet is too small===");
+                        Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "===data packet is too small===");
                         return false;
                     }
                     session_id_ = 0; // Data packet dosent have session ID
@@ -100,7 +100,7 @@ namespace OpenVPN {
                     }
                     offset += 4;
                 } else {
-                    Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "===unknown packet type=== \n opcode :" + std::to_string(opcode_));
+                    Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "===unknown packet type=== \n opcode :" + std::to_string(opcode_));
                     return false;
                 }
                 //extract payload
@@ -111,7 +111,7 @@ namespace OpenVPN {
 
                 return validatePacketStructure();
             } catch (const std::exception& e) {
-                Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "=== parsing failed === \n " + std::string(e.what()));
+                Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "=== parsing failed === \n " + std::string(e.what()));
                 return false;
             }
         }
@@ -219,19 +219,19 @@ namespace OpenVPN {
 
 
             if (totalsize > MAX_PACKET_SIZE || totalsize < MIN_PACKET_SIZE) {
-                Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "invalid packet size : "+ std::to_string(totalsize));
+                Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "invalid packet size : "+ std::to_string(totalsize));
                 return false;;
             }
 
             //check key id
             if (key_id_ > 7) {
-                Utils::Logger::getInstance().log(Utils::LogLevel::ERROR, "invalid key id :"+ std::to_string(key_id_));
+                Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "invalid key id :"+ std::to_string(key_id_));
                 return false;
             }
 
             //check opcode and packet type
             if (packet_type_ == PacketType::UNKNOWN) {
-                Utils::Logger::getInstance().log(Utils::LogLevel::ERROR,"Unknown packet type :"+ std::to_string(opcode_));
+                Utils::Logger::getInstance().log(Utils::LogLevel::UERROR,"Unknown packet type :"+ std::to_string(opcode_));
                 return false;
             }
 

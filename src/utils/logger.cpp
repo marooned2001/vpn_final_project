@@ -20,7 +20,7 @@ namespace Utils {
         std::string log_message = '[' + time_stamp + ']' + '[' + level_str + ']' + message;
 
         if (console_output_) {
-            if (level >= LogLevel::ERROR) {
+            if (level >= LogLevel::UERROR) {
                 std::cerr << log_message << std::endl;
             } else {
                 std::cout << log_message << std::endl;
@@ -53,7 +53,7 @@ namespace Utils {
             case LogLevel::DEBUG : return "DEBUG";
             case LogLevel::INFO : return "INFO";
             case LogLevel::WARNING : return "WARNING";
-            case LogLevel::ERROR : return "ERROR";
+            case LogLevel::UERROR : return "ERROR";
             case LogLevel::CRITICAL : return "CRITICAL";
             default: return "UNKNOWN";
         }

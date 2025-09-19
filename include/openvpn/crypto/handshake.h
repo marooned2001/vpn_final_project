@@ -5,7 +5,6 @@
 
 #include "ssl_context.h"
 #include "../protocol/openvpn_packet.h"
-#include "../transport/transport_factory.h"
 #include "../transport/udp_transport.h"
 #include "../../utils/logger.h"
 
@@ -78,7 +77,7 @@ namespace OpenVPN {
         //timing and transmission
         std::chrono::steady_clock::time_point handshake_start_;
         std::chrono::steady_clock::time_point last_packet_time_;
-        uint32_t handshake_time_oute_; //second
+        uint32_t handshake_timeout_; //second
         uint32_t retransmit_timeout_; //mil second
 
         //packet management
@@ -170,7 +169,7 @@ namespace OpenVPN {
 
         //configuration
         void set_handshake_timeout(uint32_t timeout) {
-            handshake_time_oute_ = timeout;
+            handshake_timeout_ = timeout;
         }
         void set_retransmit_timeout(uint32_t mili_sec_timeout) {
             retransmit_timeout_ = mili_sec_timeout;

@@ -13,7 +13,7 @@ namespace Utils {
         DEBUG = 0,
         INFO = 1,
         WARNING = 2,
-        ERROR = 3,
+        UERROR = 3,
         CRITICAL = 4
     };
 
