@@ -33,11 +33,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="complet transport except tcp protocol">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/handshake.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/handshake.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/utils/logger.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/utils/logger.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/protocol/openvpn_packet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/protocol/openvpn_packet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/utils/config.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/utils/config.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/utils/logger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/utils/logger.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +141,7 @@
       <workItem from="1757944463954" duration="6211000" />
       <workItem from="1758021222311" duration="6173000" />
       <workItem from="1758099370560" duration="23632000" />
+      <workItem from="1758375570649" duration="4147000" />
     </task>
     <task id="LOCAL-00001" summary="complet transport except tcp protocol">
       <option name="closed" value="true" />
