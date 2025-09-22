@@ -25,7 +25,7 @@ namespace OpenVPN {
         std::chrono::steady_clock::time_point creation_time;
         std::chrono::steady_clock::time_point last_usage;
         uint64_t packet_encrypted = 0;
-        uint64_t packet_decrypted = 0;
+        uint64_t bytes_encrypted = 0;
 
         void reset();
         bool is_valid()const;
@@ -71,12 +71,13 @@ namespace OpenVPN {
 
         //key derivation helper
         bool derive_key_material(const std::vector<uint8_t>& master_secret, const std::vector<uint8_t>& client_random, const std::vector<uint8_t>& server_random, KeyMaterial& key_material);
-        std::vector<uint8_t> prf_expand(const std::vector<uint8_t>& secret, const std::string& label, const std::vector<uint8_t> seed, size_t output_length);
+        std::vector<uint8_t> prf_expand(const std::vector<uint8_t>& secret, const std::string& label, const std::vector<uint8_t>& seed, size_t output_length);
+        std::vector<uint8_t> hmac_sha256(const std::vector<uint8_t>& key, const std::vector<uint8_t>& data);
 
         //key  management helpers
         std::unique_ptr<KeyMaterial> create_new_key();
         bool add_key(std::unique_ptr<KeyMaterial> key);
-        void remove_oldest_keys();
+        void remove_old_keys();
 
         //validation
         bool validate_key_material(const KeyMaterial& key) const;
@@ -119,7 +120,7 @@ namespace OpenVPN {
         // statics and monitoring
         size_t get_active_key_count()const;
         std::vector<uint32_t> get_active_key_ids()const;
-        std::string get_active_keys_statics()const;
+        std::string get_keys_statics()const;
 
         // key export/import
         std::vector<uint8_t> export_key_material(uint32_t key_id) const;
