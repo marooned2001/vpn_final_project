@@ -445,19 +445,62 @@ namespace OpenVPN {
 
     // KeyManagerFactory implementation
     std::unique_ptr<KeyManager> KeyManagerFactory::create_key_manager() {
-        
+        auto manager = std::make_unique<KeyManager>();
+        auto params = get_default_params();
+        if (!manager->initialize(params)) {
+            return nullptr;
+        }
+        manager->set_rotation_policy(get_default_rotation_policy());
+        return manager;
+    }
+    std::unique_ptr<KeyManager> KeyManagerFactory::create_key_manager(const KeyDerivationParameters &params) {
+        auto manager = std::make_unique<KeyManager>();
+        if (!manager->initialize(params)) {
+            return nullptr;
+        }
+        manager->set_rotation_policy(get_default_rotation_policy());
+        return manager;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    KeyDerivationParameters KeyManagerFactory::get_default_params() {
+        KeyDerivationParameters params;
+        params.cipher = "AES-256-GCM";
+        params.auth = "SHA256";
+        params.key_size = 32;
+        params.iv_size = 16;
+        params.hmac_size = 32;
+        params.bidirectional = true;
+        return params;
+    }
+    KeyDerivationParameters KeyManagerFactory::get_prams_for_cipher(const std::string &cipher) {
+        KeyDerivationParameters params = get_default_params();
+        params.cipher = cipher;
+        if (cipher == "AES-128-GCM" || cipher == "AES-128-CBC") {
+            params.key_size = 16;
+        } else if (cipher == "AES-256-GCM" || cipher == "AES-256-CBC") {
+            params.key_size = 32;
+        } else if (cipher == "CHACHA20-POLY1305") {
+            params.key_size = 32;
+            params.iv_size = 12;
+        }
+        return params;
+    }
+    KeyRotationPolicy KeyManagerFactory::get_default_rotation_policy() {
+        KeyRotationPolicy policy;
+        policy.max_packet_per_key = 1000000;
+        policy.max_time_per_key = 3600;
+        policy.max_bytes_per_key = 1073741824;
+        policy.auto_rotate_enable = true;
+        policy.rotate_check_interval = 60;
+        return policy;
+    }
+    KeyRotationPolicy KeyManagerFactory::get_high_security_rotation_policy() {
+        KeyRotationPolicy policy;
+        policy.max_packet_per_key = 100000;
+        policy.max_time_per_key = 900;
+        policy.max_bytes_per_key = 104857600;
+        policy.auto_rotate_enable = true;
+        policy.rotate_check_interval = 30;
+        return policy;
+    }
 }
