@@ -31,7 +31,7 @@ namespace OpenVPN {
 
         DataChannelStatics();
         void reset();
-        std::string to_string();
+        std::string to_string() const ;
         double get_encryption_rate_bps() const;
         double get_decryption_rate_bps() const;
         double get_uptime_seconds() const;
@@ -46,7 +46,7 @@ namespace OpenVPN {
         uint64_t packet_checked_,
         replays_detected_;
 
-        void log_replay_event();
+        void log_replay_event(const std::string& event);
 
         public:
         ReplayProtection( uint32_t window_size =0);
@@ -90,7 +90,7 @@ namespace OpenVPN {
         bool initialized_;
 
         //crypto configuration
-        std::string cypher_,
+        std::string cipher_,
         auth_;
         uint32_t mtu_size_;
 
@@ -110,6 +110,7 @@ namespace OpenVPN {
         bool encrypt_packet(const std::vector<uint8_t>& plaintext, const KeyMaterial& key, std::vector<uint8_t>& ciphertext, std::vector<uint8_t>& hmac);
         bool decrypt_packet(const std::vector<uint8_t>& ciphertext, const std::vector<uint8_t>& hmac, const KeyMaterial& key, std::vector<uint8_t>& plaintext);
         bool verify_hmac(const std::vector<uint8_t>& data, std::vector<uint8_t>& hmac, const KeyMaterial& key);
+        std::vector<uint8_t> calculate_hmac(const std::vector<uint8_t>& data, const KeyMaterial& key);
 
         //compression
         std::vector<uint8_t> compress_data(const std::vector<uint8_t>& data);
@@ -139,7 +140,7 @@ namespace OpenVPN {
 
         //data transmission
         bool encrypt_and_send(const std::vector<uint8_t>& plaintext, const NetworkEndpoint& destination);
-        bool receive_and_decrypt(const std::vector<uint8_t>& plaintext, const NetworkEndpoint& source);
+        bool receive_and_decrypt( std::vector<uint8_t>& plaintext, NetworkEndpoint& source);
 
         //packet processing
         void process_data_packet(const std::vector<uint8_t>& packet_data, const NetworkEndpoint& from);
@@ -169,7 +170,7 @@ namespace OpenVPN {
 
         //information
         std::string get_cipher() const {
-            return cypher_;
+            return cipher_;
         }
         std::string get_auth() const {
             return auth_;
@@ -222,7 +223,7 @@ namespace OpenVPN {
         };
 
         // Encryption/Decryption
-        bool encrypt(const std::vector<uint8_t>& plaintext, const std::vector<uint8_t>& key, std::vector<uint8_t>& iv, std::vector<uint8_t>& cipher_text, std::vector<uint8_t>& tag);
+        bool encrypt(const std::vector<uint8_t>& plaintext, const std::vector<uint8_t>& key, const std::vector<uint8_t>& iv, std::vector<uint8_t>& cipher_text, std::vector<uint8_t>& tag);
         bool decrypt(const std::vector<uint8_t>& cipher_text,const std::vector<uint8_t>& key,const std::vector<uint8_t>& iv,const std::vector<uint8_t>& tag, std::vector<uint8_t>& plaintext);
 
         // HMAC operations
