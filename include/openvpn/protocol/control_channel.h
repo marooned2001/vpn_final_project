@@ -20,7 +20,7 @@
 
 namespace OpenVPN {
     // Control message types
-    enum class ControlMessageType {
+    enum class ControlMessageType : uint8_t {
         HARD_RESET_CLIENT = 1,
         HARD_RESET_SERVER = 2,
         SOFT_RESET = 3,
@@ -109,11 +109,11 @@ namespace OpenVPN {
         private:
         uint32_t window_size_,
         max_retransmits_,
-        retransmit_timout_,
-        next_packet_id;
+        retransmit_timeout_,
+        next_packet_id_;
         // Packet tracking
-        std::map<uint32_t, ReliablePacket> outgoing_packets;
-        std::map<uint32_t, bool> received_packets;
+        std::map<uint32_t, ReliablePacket> outgoing_packets_;
+        std::map<uint32_t, bool> received_packets_;
         // Statistics
         uint64_t packets_sent_,
         packets_received_,
@@ -134,16 +134,16 @@ namespace OpenVPN {
         ReliableDelivery& operator=(ReliableDelivery&&) noexcept = default;
         //packet management
         bool send_packet(uint32_t packet_id, const std::vector<uint8_t>& data);
-        bool receive_packet(uint32_t packet_id, std::vector<uint8_t>& data);
+        bool receive_packet(uint32_t packet_id,const std::vector<uint8_t>& data);
         bool acknowledge_packet(uint32_t packet_id);
         // Retransmission
         std::vector<uint32_t> get_packets_to_retransmit(uint32_t timeout_ms = 1000);
         void mark_retransmitted(uint32_t packet_id);
         // Window management
-        void sliding_window();
+        void slid_window();
         bool is_window_full() const;
         uint32_t get_next_packet_id() const {
-            return next_packet_id;
+            return next_packet_id_;
         }
         // Statistics
         uint64_t get_packets_sent() const { return packets_sent_; }
@@ -151,7 +151,7 @@ namespace OpenVPN {
         uint64_t get_retransmissions() const { return retransmissions_; }
         uint64_t get_duplicates() const { return duplicates_; }
         // Configuration
-        void set_retransmit_timeout(uint32_t timeout_ms){ retransmit_timout_ = timeout_ms; }
+        void set_retransmit_timeout(uint32_t timeout_ms){ retransmit_timeout_ = timeout_ms; }
         void set_max_retransmits(uint32_t max_retransmits){ max_retransmits_ = max_retransmits; }
         // Cleanup
         void reset();
@@ -173,7 +173,7 @@ namespace OpenVPN {
         SessionParameters negotiated_parameters_;
         bool session_negotiated_;
         // Keepalive management
-        bool Keepalive_enabled_;
+        bool keepalive_enabled_;
         uint32_t keepalive_interval_,
         keepalive_timeout_;
         std::chrono::steady_clock::time_point last_keepalive_sent_;
@@ -209,7 +209,7 @@ namespace OpenVPN {
         void update_rtt(uint32_t packet_id);
 
         public:
-        ControlChannel(UDPTransport transport);
+        ControlChannel(UDPTransport& transport);
         ~ControlChannel() = default;
         // Non-copyable, movable
         ControlChannel(const ControlChannel&) = delete;
@@ -266,5 +266,5 @@ namespace OpenVPN {
         static bool are_parameters_compatible(const SessionParameters& local, const SessionParameters& remote);
         static SessionParameters negotiate_parameters(const SessionParameters& local, const SessionParameters& remote);
     };
-    
+
 }

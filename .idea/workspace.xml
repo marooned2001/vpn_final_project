@@ -33,6 +33,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="complet transport except tcp protocol">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/protocol/control_channel.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/protocol/control_channel.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +146,8 @@
       <workItem from="1758465505550" duration="8032000" />
       <workItem from="1758530539721" duration="9640000" />
       <workItem from="1758597139217" duration="2508000" />
-      <workItem from="1758991060598" duration="40957000" />
+      <workItem from="1758991060598" duration="41633000" />
+      <workItem from="1759504014512" duration="16766000" />
     </task>
     <task id="LOCAL-00001" summary="complet transport except tcp protocol">
       <option name="closed" value="true" />
