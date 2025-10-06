@@ -40,7 +40,7 @@ namespace OpenVPN {
         netmask = "255.255.255.0";
         uint32_t mtu = 1500;
         bool up = true;   // Interface up/down state
-        std::vector<std::string> routs, // Additional routes
+        std::vector<std::string> routes, // Additional routes
         dns_servers;
 
         bool validate() const;
@@ -48,13 +48,13 @@ namespace OpenVPN {
     };
     // Interface statistics
     struct InterfaceStatistics {
-        uint64_t packet_sent = 0;
-        uint64_t packet_received = 0;
+        uint64_t packets_sent = 0;
+        uint64_t packets_received = 0;
         uint64_t bytes_sent = 0;
         uint64_t bytes_received = 0;
         uint64_t errors_sent = 0;
         uint64_t errors_received = 0;
-        uint64_t droped_packets = 0;
+        uint64_t dropped_packets = 0;
         std::chrono::steady_clock::time_point start_time;
         std::chrono::steady_clock::time_point last_activity;
 
@@ -109,7 +109,7 @@ namespace OpenVPN {
         void process_received_packet(std::vector<uint8_t>& packet);
 
         // Route management helpers
-        bool execute_rout_command(const std::string& command);
+        bool execute_route_command(const std::string& command);
         std::string build_rout_command(const std::string& action, const std::string& network, const std::string& netmask, const std::string& gateway = "");
 
         // DNS management helpers
@@ -121,7 +121,7 @@ namespace OpenVPN {
         void handle_error(const std::string& error);
 
         // Statistics update
-        void update_statistics(uint64_t byte, bool sent);
+        void update_statistics(uint64_t bytes, bool sent);
 
         // Utilities
         void log_interface_event(const std::string& event);
@@ -167,9 +167,10 @@ namespace OpenVPN {
         }
 
         // Route management
-        bool add_rout(const std::string& network, const std::string& netmask, const std::string& gateway = "");
-        bool remove_rout(const std::string& network, const std::string& netmask);
-        bool restore_defaults();
+        bool add_route(const std::string& network, const std::string& netmask, const std::string& gateway = "");
+        bool remove_route(const std::string& network, const std::string& netmask);
+        bool set_default_route(const std::string& gateway);
+        bool restore_default_routes();
 
         // DNS management
         bool set_dns_servers(const std::vector<std::string>& dns_servers);
@@ -230,7 +231,7 @@ namespace OpenVPN {
         ~NetworkAdapter() = default;
 
         // System network information
-        static std::vector<std::string> get_network_interface();
+        static std::vector<std::string> get_network_interfaces();
         static std::string get_default_gateway();
         static std::vector<std::string> get_dns_servers();
         static std::string get_primary_interface();
@@ -269,7 +270,7 @@ namespace OpenVPN {
 
         // Configuration helpers
         static InterfaceConfig create_client_config(const ConfigOpenVPN& vpn_config);
-        static InterfaceConfig create_server_config(const ConfigOpenVPN& vpn_config, const std::vector<std::string>& server_gateway_ip);
+        static InterfaceConfig create_server_config(const ConfigOpenVPN& vpn_config, const std::string& server_gateway_ip);
 
         // Validation
         static bool validate_interface_config(const InterfaceConfig& config);
