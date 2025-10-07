@@ -14,7 +14,7 @@ namespace OpenVpn {
         std::string destination;
         std::string netmask;
         std::string gateway;
-        std::string interface;
+        std::string _interface;
         uint32_t metric = 0;
 
         std::string to_string() const;
@@ -50,7 +50,7 @@ namespace OpenVpn {
 
         // Platform-specific implementations
 #ifdef _WIN32
-        bool windows_get_interface(std::vector<NetworkInterfaceInfo>& interfaces);
+        bool windows_get_interfaces(std::vector<NetworkInterfaceInfo>& interfaces);
         bool windows_get_routes(std::vector<NetworkRoute>& routes);
         bool windows_add_route(const NetworkRoute& route);
         bool windows_remove_route(const NetworkRoute& route);
@@ -66,8 +66,6 @@ namespace OpenVpn {
 #endif
 
         // Helper methods
-        bool execute_command(const std::string& command);
-        std::string get_command_output(const std::string& command);
         bool parse_ip_address(const std::string& ip_str, uint32_t& ip_addr);
         std::string format_ip_address(uint32_t ip_addr);
 
@@ -88,7 +86,7 @@ namespace OpenVpn {
 
         // DNS configuration
         std::vector<std::string> get_system_dns_servers();
-        bool set_system_dns_servers(const std::vector<std::string>& servers);
+        bool set_system_dns_servers(const std::vector<std::string>& dns_servers);
 
         // Gateway management
         std::string get_default_gateway();
@@ -103,6 +101,10 @@ namespace OpenVpn {
         bool is_interface_operational(const std::string& name);
         uint32_t get_interface_mtu(const std::string& name);
         std::string get_interface_ip(const std::string& name);
+
+        // Utility methods
+        bool execute_command(const std::string& command);
+        std::string get_command_output(const std::string& command);
     };
 
     // VPN network configuration manager
@@ -141,7 +143,7 @@ namespace OpenVpn {
         // Route management for VPN
         bool redirect_all_traffic(const std::string& vpn_gateway, const std::string& vpn_interface);
         bool restore_original_routes();
-        bool add_vpn_route(const std::vector<std::string>& routes, const std::string& vpn_gateway);
+        bool add_vpn_routes(const std::vector<std::string>& routes, const std::string& vpn_gateway);
 
         // DNS management for VPN
         bool set_vpn_dns(const std::vector<std::string>& dns_servers);
