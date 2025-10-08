@@ -34,6 +34,9 @@
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="complet transport except tcp protocol">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/network/network_adapter.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/network/network_adapter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/utils/config.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/utils/config.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/network/network_adapter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/network/network_adapter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/utils/config.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/utils/config.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +152,8 @@
       <workItem from="1758597139217" duration="2508000" />
       <workItem from="1758991060598" duration="41633000" />
       <workItem from="1759504014512" duration="17226000" />
-      <workItem from="1759584072674" duration="32942000" />
+      <workItem from="1759584072674" duration="36618000" />
+      <workItem from="1759911530450" duration="4688000" />
     </task>
     <task id="LOCAL-00001" summary="complet transport except tcp protocol">
       <option name="closed" value="true" />

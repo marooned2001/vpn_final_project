@@ -23,7 +23,7 @@
 #include <netdb.h>
 #endif
 
-namespace OpenVpn {
+namespace OpenVPN {
     // NetworkRoute implementation
     std::string NetworkRoute::to_string() const {
         std::ostringstream oss;

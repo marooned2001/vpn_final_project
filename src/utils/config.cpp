@@ -11,7 +11,7 @@
 
 namespace OpenVPN {
     // ConfigOpenVPN implementation
-    void ConfigOpenVPN::reset() {
+    void VPNConfig::reset() {
         remote_hostname.clear();
         remote_port = 1194;
         protocol = "udp";
@@ -52,7 +52,7 @@ namespace OpenVPN {
         auth_nocache = false;
     }
 
-    bool ConfigOpenVPN::validate() const {
+    bool VPNConfig::validate() const {
         // validate connection
         if (client_mode) {
             // validate client
@@ -83,7 +83,7 @@ namespace OpenVPN {
         return true;
     }
 
-    std::string ConfigOpenVPN::get_validation_error() const {
+    std::string VPNConfig::get_validation_error() const {
         std::stringstream oss;
         // errors validate
         if (client_mode) {
@@ -110,7 +110,7 @@ namespace OpenVPN {
         }
         return oss.str();
     }
-    std::string ConfigOpenVPN::to_string() const {
+    std::string VPNConfig::to_string() const {
         std::stringstream oss;
         oss << "config OpenVPN \n";
         oss<< "mode: "<< (client_mode ? "client" : "server") << "\n";
@@ -150,7 +150,7 @@ namespace OpenVPN {
         warnings_.reserve(10);
         Utils::Logger::getInstance().log(Utils::LogLevel::DEBUG, "OpenVPN::ConfigOpenVPN::config_parser created");
     }
-    bool config_parser::pars_file(const std::string &config_file, ConfigOpenVPN &config) {
+    bool config_parser::pars_file(const std::string &config_file, VPNConfig &config) {
         clear_messages();
         std::ifstream ifs(config_file);
         if (!ifs.is_open()) {
@@ -160,7 +160,7 @@ namespace OpenVPN {
         std::string content((std::istreambuf_iterator<char>(ifs)),std::istreambuf_iterator<char>());
         return pars_string(content, config);
     }
-    bool config_parser::pars_string(const std::string &config_string, ConfigOpenVPN &config) {
+    bool config_parser::pars_string(const std::string &config_string, VPNConfig &config) {
         clear_messages();
         config.reset();
         std::istringstream iss(config_string);
@@ -185,7 +185,7 @@ namespace OpenVPN {
 
         return errors_.empty();
     }
-    bool config_parser::pars_line(const std::string& line, ConfigOpenVPN& config) {
+    bool config_parser::pars_line(const std::string& line, VPNConfig& config) {
         auto token = split_line(line);
         if (token.empty()) {
             return true;
@@ -345,7 +345,7 @@ namespace OpenVPN {
         size_t end = str.find_last_not_of(" \t\n\r");
         return str.substr(start, end - start + 1);
     }
-    bool config_parser::pars_remote(const std::vector<std::string>& tokens, ConfigOpenVPN& config) {
+    bool config_parser::pars_remote(const std::vector<std::string>& tokens, VPNConfig& config) {
         if (tokens.size() < 2) {
             return false;
         }
@@ -358,7 +358,7 @@ namespace OpenVPN {
         }
         return true;
     }
-    bool config_parser::pars_route(const std::vector<std::string> &tokens, ConfigOpenVPN &config) {
+    bool config_parser::pars_route(const std::vector<std::string> &tokens, VPNConfig &config) {
         if (tokens.size() < 2) {
             return false;
         }
@@ -372,7 +372,7 @@ namespace OpenVPN {
         config.routes.push_back(route);
         return true;
     }
-    bool config_parser::pars_server(const std::vector<std::string> &tokens, ConfigOpenVPN &config) {
+    bool config_parser::pars_server(const std::vector<std::string> &tokens, VPNConfig &config) {
         if (tokens.size() < 3) {
             return false;
         }
@@ -490,7 +490,7 @@ namespace OpenVPN {
         config_.renegotiate_seconds = seconds;
         return *this;
     }
-    ConfigOpenVPN config_builder::build() const {
+    VPNConfig config_builder::build() const {
         return config_;
     }
 }

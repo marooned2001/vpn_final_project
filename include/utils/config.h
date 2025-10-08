@@ -11,7 +11,7 @@
 
 namespace OpenVPN {
     //openVPN configuration parameters
-    struct ConfigOpenVPN {
+    struct VPNConfig {
         //connection
         std::string remote_hostname;
         uint16_t remote_port = 1194;
@@ -78,12 +78,12 @@ namespace OpenVPN {
         std::vector<std::string> warnings_;
 
         //parsing helper
-        bool pars_line(const std::string& line, ConfigOpenVPN& config);
+        bool pars_line(const std::string& line, VPNConfig& config);
         std::vector<std::string> split_line(const std::string& line);
         std::string trim(const std::string& str);
-        bool pars_remote(const std::vector<std::string>& tokens, ConfigOpenVPN& config);
-        bool pars_route(const std::vector<std::string>& tokens, ConfigOpenVPN& config);
-        bool pars_server(const std::vector<std::string>& tokens, ConfigOpenVPN& config);
+        bool pars_remote(const std::vector<std::string>& tokens, VPNConfig& config);
+        bool pars_route(const std::vector<std::string>& tokens, VPNConfig& config);
+        bool pars_server(const std::vector<std::string>& tokens, VPNConfig& config);
 
         void add_errors(const std::string& error);
         void add_warning(const std::string& warning);
@@ -93,8 +93,8 @@ namespace OpenVPN {
         ~config_parser() = default;
 
         //pars configuration file
-        bool pars_file(const std::string& config_file, ConfigOpenVPN& config);
-        bool pars_string(const std::string& config_string, ConfigOpenVPN& config);
+        bool pars_file(const std::string& config_file, VPNConfig& config);
+        bool pars_string(const std::string& config_string, VPNConfig& config);
 
         //Error handling
         const std::vector<std::string>& get_errors() const {
@@ -115,7 +115,7 @@ namespace OpenVPN {
     //config builder
     class config_builder {
         private:
-        ConfigOpenVPN config_;
+        VPNConfig config_;
         public:
         config_builder();
 
@@ -146,6 +146,6 @@ namespace OpenVPN {
         config_builder& renegotiate (uint32_t seconds);
 
         //build configuration
-        ConfigOpenVPN build() const;
+        VPNConfig build() const;
     };
 }

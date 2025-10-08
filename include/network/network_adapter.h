@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 
-namespace OpenVpn {
+namespace OpenVPN {
     // Network route entry
     struct NetworkRoute {
         std::string destination;
