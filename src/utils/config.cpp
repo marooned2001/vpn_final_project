@@ -145,12 +145,12 @@ namespace OpenVPN {
     }
 
     //config_parser implementation
-    config_parser::config_parser() {
+    ConfigParser::ConfigParser() {
         errors_.reserve(10);
         warnings_.reserve(10);
         Utils::Logger::getInstance().log(Utils::LogLevel::DEBUG, "OpenVPN::ConfigOpenVPN::config_parser created");
     }
-    bool config_parser::pars_file(const std::string &config_file, VPNConfig &config) {
+    bool ConfigParser::parse_file(const std::string &config_file, VPNConfig &config) {
         clear_messages();
         std::ifstream ifs(config_file);
         if (!ifs.is_open()) {
@@ -158,9 +158,9 @@ namespace OpenVPN {
             return false;
         }
         std::string content((std::istreambuf_iterator<char>(ifs)),std::istreambuf_iterator<char>());
-        return pars_string(content, config);
+        return parse_string(content, config);
     }
-    bool config_parser::pars_string(const std::string &config_string, VPNConfig &config) {
+    bool ConfigParser::parse_string(const std::string &config_string, VPNConfig &config) {
         clear_messages();
         config.reset();
         std::istringstream iss(config_string);
@@ -172,7 +172,7 @@ namespace OpenVPN {
             if (line.empty() || line[0] == '#' || line[0] == ';') {
                 continue;
             }
-            if (!pars_line(line, config)) {
+            if (!parse_line(line, config)) {
                 add_errors("parsing error: "+std::to_string(line_num) + ':' + line);
             }
         }
@@ -185,7 +185,7 @@ namespace OpenVPN {
 
         return errors_.empty();
     }
-    bool config_parser::pars_line(const std::string& line, VPNConfig& config) {
+    bool ConfigParser::parse_line(const std::string& line, VPNConfig& config) {
         auto token = split_line(line);
         if (token.empty()) {
             return true;
@@ -193,7 +193,7 @@ namespace OpenVPN {
         const std::string directive_token = token[0];
         //connection settings
         if (directive_token == "remote") {
-            return pars_remote(token, config);
+            return parse_remote(token, config);
         }else if (directive_token == "port") {
             if (token.size() >= 2) {
                 config.remote_port  = static_cast<uint16_t>(std::stoul(token[1]));
@@ -239,7 +239,7 @@ namespace OpenVPN {
             }
         }else if (directive_token == "routes") {
             if (token.size() >= 2) {
-                return pars_route(token, config);
+                return parse_route(token, config);
             }
         }else if (directive_token == "dhcp_options") {
             if (token.size() >= 3 && token[1] == "dns") {
@@ -255,7 +255,7 @@ namespace OpenVPN {
             config.client_mode = true;
             return true;
         }else if (directive_token == "server") {
-            return pars_server(token, config);
+            return parse_server(token, config);
         }
         // connection parameters
         else if (directive_token == "connection_timeout") {
@@ -324,7 +324,7 @@ namespace OpenVPN {
         }
         return false;
     }
-    std::vector<std::string> config_parser::split_line(const std::string& line) {
+    std::vector<std::string> ConfigParser::split_line(const std::string& line) {
         std::vector<std::string> tokens;
         std::istringstream iss(line);
         std::string token;
@@ -337,7 +337,7 @@ namespace OpenVPN {
         }
         return tokens;
     }
-    std::string config_parser::trim(const std::string& str) {
+    std::string ConfigParser::trim(const std::string& str) {
         size_t start = str.find_first_not_of(" \t\n\r");
         if (start == std::string::npos) {
             return "";
@@ -345,7 +345,7 @@ namespace OpenVPN {
         size_t end = str.find_last_not_of(" \t\n\r");
         return str.substr(start, end - start + 1);
     }
-    bool config_parser::pars_remote(const std::vector<std::string>& tokens, VPNConfig& config) {
+    bool ConfigParser::parse_remote(const std::vector<std::string>& tokens, VPNConfig& config) {
         if (tokens.size() < 2) {
             return false;
         }
@@ -358,7 +358,7 @@ namespace OpenVPN {
         }
         return true;
     }
-    bool config_parser::pars_route(const std::vector<std::string> &tokens, VPNConfig &config) {
+    bool ConfigParser::parse_route(const std::vector<std::string> &tokens, VPNConfig &config) {
         if (tokens.size() < 2) {
             return false;
         }
@@ -372,7 +372,7 @@ namespace OpenVPN {
         config.routes.push_back(route);
         return true;
     }
-    bool config_parser::pars_server(const std::vector<std::string> &tokens, VPNConfig &config) {
+    bool ConfigParser::parse_server(const std::vector<std::string> &tokens, VPNConfig &config) {
         if (tokens.size() < 3) {
             return false;
         }
@@ -380,32 +380,32 @@ namespace OpenVPN {
         config.server_network = tokens[1] + " " + tokens[2];
         return true;
     }
-    void config_parser::add_errors(const std::string &error) {
+    void ConfigParser::add_errors(const std::string &error) {
         errors_.push_back(error);
         Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "config parser: " + error );
     }
-    void config_parser::add_warning(const std::string &warning) {
+    void ConfigParser::add_warning(const std::string &warning) {
         warnings_.push_back(warning);
         Utils::Logger::getInstance().log(Utils::LogLevel::WARNING, "config parser: " + warning );
     }
-    void config_parser::clear_messages() {
+    void ConfigParser::clear_messages() {
         errors_.clear();
         warnings_.clear();
     }
-    bool config_parser::is_valid_ip(const std::string &ip) {
+    bool ConfigParser::is_valid_ip(const std::string &ip) {
         std::regex ipv4_regex(R"(^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)");
         return std::regex_match(ip, ipv4_regex);
     }
-    bool config_parser::is_valid_port(const uint16_t &port) {
+    bool ConfigParser::is_valid_port(const uint16_t &port) {
         return port > 0 && port <= 65535;
     }
-    bool config_parser::is_valid_cipher(const std::string &cipher) {
+    bool ConfigParser::is_valid_cipher(const std::string &cipher) {
         //common openvpn cipher
         static const std::vector<std::string> ciphers = {"AES-256-GCM", "AES-128-GCM", "AES-256-CBC", "AES-128-CBC",
         "CHACHA20-POLY1305", "BF-CBC", "DES-EDE3-CBC"};
         return std::find(ciphers.begin(), ciphers.end(), cipher) != ciphers.end();
     }
-    bool config_parser::is_valid_auth(const std::string &auth) {
+    bool ConfigParser::is_valid_auth(const std::string &auth) {
         // common openvpn auth
         static const std::vector<std::string> valid_auth = {"SHA256", "SHA1", "SHA384", "SHA512", "MD5"};
         return std::find(valid_auth.begin(), valid_auth.end(), auth) != valid_auth.end();
@@ -493,4 +493,46 @@ namespace OpenVPN {
     VPNConfig config_builder::build() const {
         return config_;
     }
+
+    bool VPNConfig::load_from_file(const std::string& config_file) {
+        ConfigParser parser;
+        bool success = parser.parse_file(config_file, *this);
+
+        if (!success) {
+            // Log errors
+            Utils::Logger::getInstance().log(Utils::LogLevel::UERROR,
+                "Failed to parse config file: " + config_file);
+            for (const auto& error : parser.get_errors()) {
+                Utils::Logger::getInstance().log(Utils::LogLevel::UERROR, "  " + error);
+            }
+            return false;
+        }
+
+        // Sync aliases between old and new field names
+        if (!ca_file.empty() && ca_cert.empty()) {
+            ca_cert = ca_file;
+        } else if (!ca_cert.empty() && ca_file.empty()) {
+            ca_file = ca_cert;
+        }
+
+        // Sync cert/key based on mode
+        if (!cert_file.empty()) {
+            if (client_mode) {
+                client_cert = cert_file;
+            } else {
+                server_cert = cert_file;
+            }
+        }
+
+        if (!key_file.empty()) {
+            if (client_mode) {
+                client_key = key_file;
+            } else {
+                server_key = key_file;
+            }
+        }
+
+        return true;
+    }
+
 }

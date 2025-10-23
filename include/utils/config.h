@@ -59,6 +59,15 @@ namespace OpenVPN {
         std::string auth_user_pass_file;
         bool auth_nocache = false;
 
+        uint16_t local_port = 1194;
+
+        // Added aliases for clearer client/server distinction
+        std::string ca_cert;      // Alias for ca_file
+        std::string client_cert;  // For client mode
+        std::string server_cert;  // For server mode
+        std::string client_key;   // For client mode
+        std::string server_key;   // For server mode
+
         //reset
         void reset();
 
@@ -68,33 +77,36 @@ namespace OpenVPN {
 
         //to string
         std::string to_string() const;
+
+        bool load_from_file(const std::string& config_file);
+
     };
 
 
     //configuration file parser
-    class config_parser {
+    class ConfigParser {
     private:
         std::vector<std::string> errors_;
         std::vector<std::string> warnings_;
 
         //parsing helper
-        bool pars_line(const std::string& line, VPNConfig& config);
+        bool parse_line(const std::string& line, VPNConfig& config);
         std::vector<std::string> split_line(const std::string& line);
         std::string trim(const std::string& str);
-        bool pars_remote(const std::vector<std::string>& tokens, VPNConfig& config);
-        bool pars_route(const std::vector<std::string>& tokens, VPNConfig& config);
-        bool pars_server(const std::vector<std::string>& tokens, VPNConfig& config);
+        bool parse_remote(const std::vector<std::string>& tokens, VPNConfig& config);
+        bool parse_route(const std::vector<std::string>& tokens, VPNConfig& config);
+        bool parse_server(const std::vector<std::string>& tokens, VPNConfig& config);
 
         void add_errors(const std::string& error);
         void add_warning(const std::string& warning);
 
         public:
-        config_parser();
-        ~config_parser() = default;
+        ConfigParser();
+        ~ConfigParser() = default;
 
         //pars configuration file
-        bool pars_file(const std::string& config_file, VPNConfig& config);
-        bool pars_string(const std::string& config_string, VPNConfig& config);
+        bool parse_file(const std::string& config_file, VPNConfig& config);
+        bool parse_string(const std::string& config_string, VPNConfig& config);
 
         //Error handling
         const std::vector<std::string>& get_errors() const {

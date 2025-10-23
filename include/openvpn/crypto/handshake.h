@@ -166,6 +166,8 @@ namespace OpenVPN {
         bool has_failed() const {
             return state_ == HandshakeState::HANDSHAKE_FAILED;
         }
+        // Result access
+        const HandshakeResult& get_result() const { return handshake_result_; }
 
         //configuration
         void set_handshake_timeout(uint32_t timeout) {

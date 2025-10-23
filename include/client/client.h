@@ -67,7 +67,7 @@ namespace OpenVPN{
 
     class OpenVPNClient {
         private:
-        bool initialize_component();
+        bool initialize_components();
         void cleanup_component();
 
         bool resolve_server_address();
@@ -82,7 +82,7 @@ namespace OpenVPN{
         void handle_data_packets();
         void process_tun_packets();
 
-        void handle_keep_alive();
+        void handle_keepalive();
         void handle_reconnect();
         bool should_reconnect() const;
         int calculate_reconnect_delay() const;
@@ -98,7 +98,7 @@ namespace OpenVPN{
 
         VPNConfig config_;
         ClientState state_;
-        ClientCallback callback_;
+        ClientCallback callbacks_;
         ConnectionStats stats_;
 
         std::unique_ptr<SSLContext> ssl_context_;
@@ -119,6 +119,10 @@ namespace OpenVPN{
         int max_reconnect_attempts_;
         int current_reconnect_attempt_;
         std::chrono::system_clock::time_point last_reconnect_start_;
+
+        int keepalive_interval_;
+        int keepalive_timeout_;
+        std::chrono::system_clock::time_point last_keepalive_;
 
         std::string server_address_;
         std::string virtual_ip_;
@@ -174,6 +178,8 @@ namespace OpenVPN{
         ClientBuilder& with_callbacks(const ClientCallback& callback);
         ClientBuilder& with_reconnect(ReconnectStrategy strategy, int max_attempts);
         ClientBuilder& with_keepalive(int interval, int timeout);
+
+        std::unique_ptr<OpenVPNClient> build();
     };
 
 }

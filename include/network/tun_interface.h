@@ -269,8 +269,8 @@ namespace OpenVPN {
         static std::unique_ptr<TunInterface> create_interface(InterfaceType type);
 
         // Configuration helpers
-        static InterfaceConfig create_client_config(const ConfigOpenVPN& vpn_config);
-        static InterfaceConfig create_server_config(const ConfigOpenVPN& vpn_config, const std::string& server_gateway_ip);
+        static InterfaceConfig create_client_config(const VPNConfig& vpn_config);
+        static InterfaceConfig create_server_config(const VPNConfig& vpn_config, const std::string& server_gateway_ip);
 
         // Validation
         static bool validate_interface_config(const InterfaceConfig& config);
