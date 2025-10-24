@@ -180,6 +180,11 @@ namespace  OpenVPN {
         reconnect_strategy_ = strategy;
         max_reconnect_attempts_ = max_attempts;
     }
+    void OpenVPNClient::set_keepalive(int interval_seconds, int timeout_seconds) {
+        keepalive_interval_ = interval_seconds;
+        keepalive_timeout_ = timeout_seconds;
+    }
+
     std::string OpenVPNClient::get_server_address() const {
         return server_address_;
     }
@@ -469,6 +474,11 @@ namespace  OpenVPN {
                 return 5;
         }
     }
+    void OpenVPNClient::update_stats() {
+        if (callbacks_.on_stats_update) {
+            callbacks_.on_stats_update(stats_);
+        }
+    }
     void OpenVPNClient::change_state(ClientState new_state) {
         if (state_ != new_state) {
             state_ = new_state;
@@ -557,43 +567,4 @@ namespace  OpenVPN {
         client->set_keepalive(keepalive_interval_, keepalive_timeout_);
         return client;
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -33,12 +33,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="complet transport except tcp protocol">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/client/client_main.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/client/client.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/network/tun_interface.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/network/tun_interface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/handshake.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/handshake.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/server/server_main.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/server/server.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/utils/config.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/utils/config.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/utils/config.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/utils/config.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/client/client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/client/client.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +154,8 @@
       <workItem from="1760107059016" duration="3001000" />
       <workItem from="1760898406205" duration="2002000" />
       <workItem from="1760941190027" duration="15956000" />
-      <workItem from="1761245704576" duration="2228000" />
+      <workItem from="1761245704576" duration="3015000" />
+      <workItem from="1761297893889" duration="471000" />
     </task>
     <task id="LOCAL-00001" summary="complet transport except tcp protocol">
       <option name="closed" value="true" />
