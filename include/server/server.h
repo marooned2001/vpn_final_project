@@ -13,6 +13,7 @@
 #include "openvpn/protocol/control_channel.h"
 #include "network/network_adapter.h"
 #include "utils/logger.h"
+#include "network/tun_interface.h"
 
 #include <string>
 #include <memory>
@@ -114,7 +115,7 @@ namespace OpenVPN {
         void initialize(const std::string& network, const std::string& netmask);
         std::string allocate_ip();
         bool release_ip(const std::string& ip);
-        bool is_all_allocated(const std::string& ip) const;
+        bool is_ip_allocated(const std::string& ip) const;
 
         size_t available_count() const;
         size_t allocated_count() const;
@@ -142,6 +143,7 @@ namespace OpenVPN {
         std::unique_ptr<SSLContext> ssl_context_;
         std::unique_ptr<UDPTransport> transport_;
         std::unique_ptr<VPNNetworkManager> network_manager_;
+        std::unique_ptr<TunInterface> tun_interface_;
         std::unique_ptr<IPAddressPool> ip_pool_;
 
         std::map<uint32_t, std::unique_ptr<ClientSession>> sessions_;
@@ -154,7 +156,7 @@ namespace OpenVPN {
         std::thread stats_thread_;
 
         uint32_t next_session_id_;
-        uint32_t max_client_;
+        uint32_t max_clients_;
 
         static constexpr int CLEANUP_INTERVAL_SECONDS = 60;
         static constexpr int STATS_UPDATE_INTERVAL_SECONDS = 10;
@@ -230,6 +232,15 @@ namespace OpenVPN {
         std::string pool_netmask_ = "255.255.255.0";
         bool has_config_file_ = false;
         bool has_config_ = false;
+
+    public:
+        ServerBuilder& with_config_file(const std::string& config_file);
+        ServerBuilder& with_config(const VPNConfig& config);
+        ServerBuilder& with_callbacks(const ServerCallbacks& callbacks);
+        ServerBuilder& with_max_clients(uint32_t max_clients);
+        ServerBuilder& with_ip_pool(const std::string& network, const std::string& netmask);
+
+        std::unique_ptr<OpenVPNServer> build();
     };
 
 }
