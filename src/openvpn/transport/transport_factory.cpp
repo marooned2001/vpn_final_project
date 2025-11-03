@@ -4,7 +4,7 @@
 #include "../../../include/openvpn/transport/transport_factory.h"
 
 namespace OpenVPN {
-    std::unique_ptr<OpenVPN::UDPTransport> TransportFactory::create_udp_transport() {
+    std::unique_ptr<UDPTransport> TransportFactory::create_udp_transport() {
         return std::make_unique<OpenVPN::UDPTransport>();
     }
     TransportFactory::Protocol TransportFactory::string_to_protocol(const std::string &protocol_str) {

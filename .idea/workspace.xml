@@ -22,7 +22,8 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="vpn_final_project_" targetName="openvpn_lib" />
-      <config projectName="vpn_final_project_" targetName="vpn_final_project_" />
+      <config projectName="vpn_final_project_" targetName="openvpn_server" />
+      <config projectName="vpn_final_project_" targetName="openvpn_client" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -33,6 +34,19 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a1d860-e78d-414f-a69f-0fd23ff218f3" name="Changes" comment="complet transport except tcp protocol">
       <change beforePath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/network/network_adapter.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/network/network_adapter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/ssl_context.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/crypto/ssl_context.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/transport_factory.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/transport_factory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/udp_transport.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/openvpn/transport/udp_transport.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/include/server/server.h" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/include/server/server.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/network/network_adapter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/network/network_adapter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/network/tun_interface.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/network/tun_interface.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/crypto/handshake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/crypto/handshake.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/crypto/ssl_context.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/crypto/ssl_context.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/transport_factory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/transport_factory.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/udp_transport.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/openvpn/transport/udp_transport.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vpn_final_project/src/server/server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../vpn_final_project/src/server/server.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +80,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;CMake Application.openvpn_client.executor&quot;: &quot;Run&quot;,
     &quot;CMake Application.vpn_final_project_.executor&quot;: &quot;Run&quot;,
     &quot;CMake Debug.vpn_final_project_.executor&quot;: &quot;Debug&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
@@ -98,20 +113,31 @@
       <recent name="D:\random_shite\c++\vpn_final_project\main" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.vpn_final_project_">
+  <component name="RunManager" selected="CMake Application.openvpn_client">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="openvpn_client" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="vpn_final_project_" TARGET_NAME="openvpn_client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="vpn_final_project_" RUN_TARGET_NAME="openvpn_client">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="openvpn_lib" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="vpn_final_project_" TARGET_NAME="openvpn_lib" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="vpn_final_project_" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="vpn_final_project_" TARGET_NAME="vpn_final_project_" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="vpn_final_project_" RUN_TARGET_NAME="vpn_final_project_">
+    <configuration name="openvpn_server" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="vpn_final_project_" TARGET_NAME="openvpn_server" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="vpn_final_project_" RUN_TARGET_NAME="openvpn_server">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="CMake Application.openvpn_client" />
       <item itemvalue="CMake Application.openvpn_lib" />
-      <item itemvalue="CMake Application.vpn_final_project_" />
+      <item itemvalue="CMake Application.openvpn_server" />
     </list>
   </component>
   <component name="TaskManager">
@@ -157,6 +183,8 @@
       <workItem from="1761297893889" duration="22456000" />
       <workItem from="1761811017776" duration="4000" />
       <workItem from="1761902359677" duration="6658000" />
+      <workItem from="1762092656830" duration="4197000" />
+      <workItem from="1762148792585" duration="5538000" />
     </task>
     <task id="LOCAL-00001" summary="complet transport except tcp protocol">
       <option name="closed" value="true" />

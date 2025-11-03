@@ -204,7 +204,7 @@ namespace OpenVPN {
         return SSL_CTX_load_verify_locations(ctx_, nullptr, ca_dir.c_str() ) == 1;
     }
 
-    void SSLContext::set_verify_mode(SSLMode mode) {
+    void SSLContext::set_verify_mode(VerificationMode mode) {
         if (!ctx_) {
             return;
         }

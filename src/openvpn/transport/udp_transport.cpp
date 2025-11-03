@@ -57,8 +57,8 @@ namespace OpenVPN {
         oss << "packets_received: " << packets_received << "\n";
         oss << "send_errors: " << send_errors << "\n";
         oss << "receive_errors: " << receive_errors << "\n";
-        oss << "send rate: "<<get_send_rate <<"bps \n";
-        oss << "receive rate: "<<get_receive_rate <<"bps \n";
+        oss << "send rate: " << get_send_rate() <<"bps \n";
+        oss << "receive rate: "<<get_receive_rate() <<"bps \n";
         return oss.str();
     }
     double UdpTransportStatics::get_uptime() const {
@@ -114,7 +114,7 @@ namespace OpenVPN {
         }
         return *this;
     }
-    bool UDPTransport::initialize(const ConfigOpenVPN &config) {
+    bool UDPTransport::initialize(const VPNConfig &config) {
         if (is_initialized()) {
             return true;
         }

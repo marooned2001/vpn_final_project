@@ -80,7 +80,7 @@ namespace OpenVPN {
         auto interfaces = get_all_interfaces();
         // Find first non-loopback, up interface
         for (const auto& interfacee : interfaces) {
-            if (interfacee.is_loopback() && interfacee.is_up() && !interfacee.ip_address.empty()) {
+            if (interfacee.is_loopback && interfacee.is_up && !interfacee.ip_address.empty()) {
                 return interfacee.name;
             }
         }
@@ -135,6 +135,46 @@ namespace OpenVPN {
     std::string SystemNetworkConfig::get_default_gateway() {
         auto default_route = get_default_route();
         return default_route.gateway;
+    }
+
+    bool SystemNetworkConfig::set_default_gateway(const std::string &gateway, const std::string &interfacee) {
+        NetworkRoute default_route;
+        default_route.destination = "0.0.0.0";
+        default_route.netmask = "0.0.0.0";
+        default_route.gateway = gateway;
+        default_route._interface = interfacee;
+        default_route.metric = 1;
+
+        return add_route(default_route);
+    }
+
+    bool SystemNetworkConfig::is_interface_operational(const std::string &name) {
+        auto interfaces = get_all_interfaces();
+        auto it = std::find_if(interfaces.begin(), interfaces.end(),
+            [&name](const NetworkInterfaceInfo& info) {
+                return info.name == name && info.is_up && !info.ip_address.empty();
+            });
+
+        return  it != interfaces.end();
+    }
+
+    uint32_t SystemNetworkConfig::get_interface_mtu(const std::string &name) {
+        auto info = get_interface_info(name);
+        return info.mtu;
+    }
+
+    std::string SystemNetworkConfig::get_interface_ip(const std::string &name) {
+        auto info = get_interface_info(name);
+        return info.ip_address;
+    }
+
+    bool SystemNetworkConfig::parse_ip_address(const std::string &ip_str, uint32_t &ip_addr) {
+        struct in_addr addr;
+        if (inet_pton(AF_INET, ip_str.c_str(), &addr) <= 0) {
+            return false;
+        }
+        ip_addr = addr.s_addr;
+        return true;
     }
     bool SystemNetworkConfig::backup_configuration() {
         if (has_backup_) {
@@ -224,6 +264,72 @@ namespace OpenVPN {
             routes.push_back(route);
         }
         return true;
+    }
+
+    bool SystemNetworkConfig::windows_add_route(const NetworkRoute &route) {
+        std::string command = "route add" + route.destination + " mask " + route.netmask + " " + route.gateway;
+        if (route.metric > 0) {
+            command += " metric " + std::to_string(route.metric);
+        }
+        return execute_command(command);
+    }
+
+    bool SystemNetworkConfig::windows_remove_route(const NetworkRoute &route) {
+        std::string command = "route delete " + route.destination + " mask " + route.netmask;
+
+        return execute_command(command);
+    }
+
+    bool SystemNetworkConfig::windows_set_dns(const std::vector<std::string> &dns_servers) {
+        if (dns_servers.empty()) {
+            return false;
+        }
+
+        auto primary_interface = get_primary_interface();
+        if (primary_interface.empty()) {
+            return false;
+        }
+
+        std::string dns_list;
+        for (size_t i = 0; i < dns_servers.size(); i++) {
+            if (i>0) dns_list += " ";
+            dns_list += dns_servers[i];
+        }
+
+        std::string command  = "netsh interface ipv4 set dns name=\"" + primary_interface + "\" static " + dns_servers[0];
+        if (!execute_command(command)) {
+            return false;
+        }
+
+        for (size_t i = 1; i < dns_servers.size(); i++) {
+            command = "netsh interface ipv4 add dns name=\"" + primary_interface + "\" static " + dns_servers[i] + "index=" + std::to_string(i+1);
+            execute_command(command);
+        }
+        return true;
+    }
+
+    std::vector<std::string> SystemNetworkConfig::windows_get_dns() {
+        std::vector<std::string> dns_servers;
+
+        std::string output = get_command_output("netsh interface ipv4 show dns");
+        std::istringstream iss(output);
+        std::string line;
+
+        while (std::getline(iss, line)) {
+            if (line.find("Static IP Address") != std::string::npos ||
+                line.find("Stateless address") != std::string::npos) {
+                size_t pos = line.find_last_of(":");
+                if (pos != std::string::npos) {
+                    std::string dns_ip = line.substr(pos + 1);
+                    dns_ip.erase(0, dns_ip.find_first_not_of(" "));
+                    dns_ip.erase(dns_ip.find_last_not_of(" ") + 1);
+                    if (!dns_ip.empty() && dns_ip != "None" && dns_ip != "(none)") {
+                        dns_servers.push_back(dns_ip);
+                    }
+                }
+            }
+        }
+        return dns_servers;
     }
 #else
     bool SystemNetworkConfig::linux_get_interfaces(std::vector<NetworkInterfaceInfo>& interfaces) {
@@ -556,6 +662,65 @@ std::vector<std::string> SystemNetworkConfig::linux_get_dns() {
         // For now, return placeholder
         return "0.0.0.0";
     }
+
+    bool VPNNetworkManager::add_bypass_route(const std::string &network, const std::string &netmask) {
+        auto original_gateway = system_config_.get_default_gateway();
+
+        NetworkRoute route;
+        route.destination = network;
+        route.netmask = netmask;
+        route.gateway = original_gateway;
+        route.metric = 1;
+
+        if (system_config_.add_route(route)) {
+            bypass_routes_.push_back(network + "/" + netmask);
+            log_network_event("Added bypass route: " + network + "/" + netmask);
+            return true;
+        }
+        return false;
+    }
+
+    bool VPNNetworkManager::remove_bypass_route(const std::string &network, const std::string &netmask) {
+        NetworkRoute route;
+        route.destination = network;
+        route.netmask = netmask;
+
+        if (system_config_.remove_route(route)) {
+            auto it = std::find(bypass_routes_.begin(), bypass_routes_.end(), network + "/" + netmask);
+            if (it != bypass_routes_.end()) {
+                bypass_routes_.erase(it);
+            }
+            log_network_event("Removed bypass route: " + network + "/" + netmask);
+            return true;
+        }
+        return false;
+    }
+
+    bool VPNNetworkManager::is_traffic_encrypted() {
+        if (!vpn_active_) {
+            return false;
+        }
+        return system_config_.is_interface_operational(vpn_interface_);
+    }
+
+    bool VPNNetworkManager::validate_vpn_setup() {
+        if (!vpn_active_) {
+            log_network_event("VPN not active for validation");
+            return false;
+        }
+        if (vpn_interface_.empty() || vpn_gateway_.empty()) {
+            log_network_event("VPN interface or gateway not configured");
+            return false;
+        }
+
+        if (!system_config_.is_interface_operational(vpn_interface_)) {
+            log_network_event("VPN interface not operational");
+            return false;
+        }
+
+        return true;
+    }
+
     bool VPNNetworkManager::backup_system_configuration() {
         if (config_backed_up_) {
             return true;
@@ -569,4 +734,5 @@ std::vector<std::string> SystemNetworkConfig::linux_get_dns() {
     void VPNNetworkManager::log_network_event(const std::string &event) {
         Utils::Logger::getInstance().log(Utils::LogLevel::INFO, "VPNNetworkManager: " + event);
     }
+
 }

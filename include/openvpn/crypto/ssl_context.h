@@ -63,7 +63,7 @@ namespace OpenVPN {
         bool load_ca_directory(const std::string& ca_dir);
 
         //security configuration
-        void set_verify_mode(SSLMode mode);
+        void set_verify_mode(VerificationMode mode);
         bool set_cipher_list(const std::string& cipher_list);
         bool set_cipher_suites(const std::string& cipher_suits);
         void set_session_cash(bool enable);

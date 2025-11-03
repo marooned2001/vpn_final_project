@@ -116,7 +116,7 @@ namespace OpenVPN {
         UDPTransport& operator=(UDPTransport&& other) noexcept;
 
         //configuration
-        bool initialize(const ConfigOpenVPN& config);
+        bool initialize(const VPNConfig& config);
         void shutdown();
         bool is_initialized() const {
             return socket_ != INVALID_SOCKET;

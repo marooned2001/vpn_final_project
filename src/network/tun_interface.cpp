@@ -10,7 +10,7 @@
 #include <regex>
 #include <cstring>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <ws2tcpip.h>
 #pragma comment(lib, "iphlpapi.lib")
 #else
@@ -860,7 +860,7 @@ namespace OpenVPN {
             return create_tap_interface();
         }
     }
-    InterfaceConfig NetworkInterfaceFactory::create_client_config(const ConfigOpenVPN &vpn_config) {
+    InterfaceConfig NetworkInterfaceFactory::create_client_config(const VPNConfig &vpn_config) {
         InterfaceConfig config;
         config.type = (vpn_config.dev_type == "tun") ? InterfaceType::TUN : InterfaceType::TAP;
         config.name = vpn_config.dev_name.empty() ? TunInterface::generate_interface_name(config.type) : vpn_config.dev_name;
@@ -869,7 +869,7 @@ namespace OpenVPN {
         config.dns_servers = vpn_config.dns_servers;
         return config;
     }
-    InterfaceConfig NetworkInterfaceFactory::create_server_config(const ConfigOpenVPN &vpn_config, const std::string &server_gateway_ip) {
+    InterfaceConfig NetworkInterfaceFactory::create_server_config(const VPNConfig &vpn_config, const std::string &server_gateway_ip) {
         InterfaceConfig config;
         config.type = (vpn_config.dev_type == "tun") ? InterfaceType::TUN : InterfaceType::TAP;
         config.name = vpn_config.dev_name.empty() ?

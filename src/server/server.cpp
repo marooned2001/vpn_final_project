@@ -297,7 +297,7 @@ namespace OpenVPN {
         callbacks_ = callbacks;
     }
 
-    void OpenVPNServer::set_max_client(uint32_t max_client) {
+    void OpenVPNServer::set_max_clients(uint32_t max_client) {
         max_clients_ = max_client;
     }
 

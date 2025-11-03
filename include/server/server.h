@@ -211,7 +211,7 @@ namespace OpenVPN {
         ServerStatistics get_statistics() const;
 
         void set_callbacks(ServerCallbacks callbacks);
-        void set_max_client(uint32_t max_client);
+        void set_max_clients(uint32_t max_client);
         void set_ip_pool(const std::string& network, const std::string& netmask);
 
         std::vector<ClientSession*> get_active_sessions() const;

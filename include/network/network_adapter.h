@@ -90,7 +90,7 @@ namespace OpenVPN {
 
         // Gateway management
         std::string get_default_gateway();
-        bool set_default_gateway(const std::string& gateway, const std::string& interface = "");
+        bool set_default_gateway(const std::string& gateway, const std::string& interfacee = "");
 
         // Configuration backup/restore
         bool backup_configuration();

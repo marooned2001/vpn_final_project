@@ -338,7 +338,7 @@ namespace OpenVPN {
             return false;
         }
         auto now = std::chrono::steady_clock::now();
-        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - last_sent_packet_);
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - last_packet_time_);
         return elapsed.count() >= retransmit_timeout_;
     }
     void TLSHandshake::handle_retransmit() {
@@ -501,7 +501,7 @@ namespace OpenVPN {
     }
 
     void TLSHandshake::log_handshake_event(const std::string &event) {
-        Utils::Logger::getInstance().log(Utils::LogLevel::INFO, "TLS Handshake event[session 0x" + to_string(session_id_) + " ]:"  + event);
+        Utils::Logger::getInstance().log(Utils::LogLevel::INFO, "TLS Handshake event[session 0x" + std::to_string(session_id_) + " ]:"  + event);
     }
 
     std::unique_ptr<TLSHandshake> HandshakeFactory::create_client_handshake(SSLContext &ssl_context, UDPTransport &transport) {
